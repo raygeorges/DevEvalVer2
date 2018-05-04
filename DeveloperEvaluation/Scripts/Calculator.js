@@ -61,6 +61,7 @@ function checkInput() {
 
 }
 
+//Posts user data to our Calculate controller, and handles the response.
 function sendToBackend(userInput) {
     $.post("api/Calculate", { "input":userInput })
         .done(function (data, status, jqxhr) {
@@ -76,14 +77,16 @@ function sendToBackend(userInput) {
 
 //Dynamically generates html for every calculation
 function generateCalculationRow(data) {
-    return '<div class="resultBlock"><div class="col-md-12"><p>Calculation #: ' + calcCounter + ' Last calculation time: ' + new Date().toLocaleString() + '</p></div><div class="col-md-12"><label id="mean_label">&nbsp; Mean: ' + data.mean + '</label><label id="median_label">&nbsp; Median: ' + data.median + '</label><label id="mode_label">&nbsp; Mode: ' + data.mode + '</label></div></div></div>'
+    return '<div class="resultBlock"><div class="col-md-12"><p>Calculation #: ' + calcCounter + ' Last calculation: ' + new Date().toLocaleString() + '</p></div><div class="col-md-12"><label id="mean_label">&nbsp; Mean: ' + data.mean + '</label><label id="median_label">&nbsp; Median: ' + data.median + '</label><label id="mode_label">&nbsp; Mode: ' + data.mode + '</label></div></div></div>'
 }
 
+//Disables form controls when calculating to prevent flooding
 function lockControls() {
     $("#userinput").attr("disabled", "disabled");
     $("#calculatebutton").attr("disabled", "disabled");
 }
 
+//Enables previously locked controls
 function unlockControls() {
     $("#userinput").removeAttr("disabled");
     $("#calculatebutton").removeAttr("disabled");
